@@ -5,7 +5,8 @@ Sub FormatData_ARManagerReport()
     With ws.Cells
         .Select
         .UnMerge
-        .WrapText = False ' First toggle off
-        .WrapText = True  ' Then toggle back on
+        .WrapText = False ' First toggle (off)
+        .WrapText = True  ' Then toggle back (on)
+        .WrapText = False ' Third click (off)
     End With
 End Sub
