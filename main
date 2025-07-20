@@ -37,37 +37,40 @@ Sub FormatData_ARManagerReport()
     headers = Array("Sponsor/RIA", "BLK #", "Qtr", "Qtr Bucket", "Account #", "RPM", _
                     "Termination Date", "Long Title", "Total Fee Due", "Division Type", _
                     "Invoice #", "Owner", "Bucket Status", "Notes", "RIA")
-                    
+
     fillColors = Array( _
-        RGB(216, 228, 188), _     ' A - Olive Accent 3 80%
-        RGB(255, 255, 0), _       ' B - Yellow
-        RGB(216, 228, 188), _     ' C - Olive
-        RGB(216, 228, 188), _     ' D - Olive
-        RGB(255, 255, 0), _       ' E - Yellow
-        RGB(184, 204, 228), _     ' F - Light blue
-        RGB(184, 204, 228), _     ' G - Light blue
-        RGB(255, 255, 0), _       ' H - Yellow
-        RGB(255, 255, 0), _       ' I - Yellow
-        RGB(255, 255, 0), _       ' J - Yellow
-        RGB(255, 255, 0), _       ' K - Yellow
-        -1, -1, -1, -1)           ' L to O - No fill
+        RGB(216, 228, 188), _  ' A - Olive Accent 3 Lighter 80%
+        RGB(255, 255, 0), _    ' B - Yellow
+        RGB(216, 228, 188), _  ' C - Olive Accent 3 Lighter 80%
+        RGB(216, 228, 188), _  ' D - Olive Accent 3 Lighter 80%
+        RGB(255, 255, 0), _    ' E - Yellow
+        RGB(184, 204, 228), _  ' F - Light Blue
+        RGB(184, 204, 228), _  ' G - Light Blue
+        RGB(255, 255, 0), _    ' H - Yellow
+        RGB(255, 255, 0), _    ' I - Yellow
+        RGB(255, 255, 0), _    ' J - Yellow
+        RGB(255, 255, 0), _    ' K - Yellow
+        -1, _                  ' L - No fill
+        -1, _                  ' M - No fill
+        -1, _                  ' N - No fill
+        -1)                    ' O - No fill
 
     fontColors = Array( _
-        RGB(0, 0, 0), _           ' A - black
-        RGB(0, 0, 0), _           ' B
-        RGB(0, 0, 0), _           ' C
-        RGB(0, 0, 0), _           ' D
-        RGB(0, 0, 0), _           ' E
-        RGB(0, 0, 0), _           ' F
-        RGB(0, 0, 0), _           ' G
-        RGB(0, 0, 0), _           ' H
-        RGB(0, 0, 0), _           ' I
-        RGB(0, 0, 0), _           ' J
-        RGB(0, 0, 0), _           ' K
-        RGB(255, 0, 0), _         ' L - Red text
-        RGB(255, 0, 0), _         ' M - Red text
-        RGB(255, 0, 0), _         ' N - Red text
-        RGB(255, 0, 0))           ' O - Red text
+        RGB(0, 0, 0), _        ' A - Black
+        RGB(0, 0, 0), _        ' B
+        RGB(0, 0, 0), _        ' C
+        RGB(0, 0, 0), _        ' D
+        RGB(0, 0, 0), _        ' E
+        RGB(0, 0, 0), _        ' F
+        RGB(0, 0, 0), _        ' G
+        RGB(0, 0, 0), _        ' H
+        RGB(0, 0, 0), _        ' I
+        RGB(0, 0, 0), _        ' J
+        RGB(0, 0, 0), _        ' K
+        RGB(255, 0, 0), _      ' L - Red
+        RGB(255, 0, 0), _      ' M - Red
+        RGB(255, 0, 0), _      ' N - Red
+        RGB(255, 0, 0))        ' O - Red
 
     For i = 0 To UBound(headers)
         With newSheet.Cells(1, i + 1)
@@ -80,4 +83,3 @@ Sub FormatData_ARManagerReport()
         End With
     Next i
 End Sub
-s
