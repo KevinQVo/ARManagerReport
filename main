@@ -16,47 +16,48 @@ Sub FormatData_ARManagerReport()
 
     ' Step 1: Format current sheet
     With ws.Cells
-        .Select
         .UnMerge
-        .WrapText = False ' First click (off)
-        .WrapText = True  ' Second click (on)
-        .WrapText = False ' Third click (off)
+        .WrapText = False
+        .WrapText = True
+        .WrapText = False
     End With
 
     ' Step 2: Create new sheet named "template"
     On Error Resume Next
     Application.DisplayAlerts = False
-    Worksheets("template").Delete ' Delete existing one if it exists
+    Worksheets("template").Delete
     Application.DisplayAlerts = True
     On Error GoTo 0
 
     Set newSheet = Worksheets.Add(After:=Worksheets(Worksheets.Count))
     newSheet.Name = "template"
 
-    ' Step 3: Add headers with formatting
+    ' Step 3: Define headers
     headers = Array("Sponsor/RIA", "BLK #", "Qtr", "Qtr Bucket", "Account #", "RPM", _
                     "Termination Date", "Long Title", "Total Fee Due", "Division Type", _
                     "Invoice #", "Owner", "Bucket Status", "Notes", "RIA")
 
+    ' Step 4: Define fill colors
     fillColors = Array( _
-        RGB(216, 228, 188), _  ' A - Olive Accent 3 Lighter 80%
-        RGB(255, 255, 0), _    ' B - Yellow
-        RGB(216, 228, 188), _  ' C - Olive
-        RGB(216, 228, 188), _  ' D - Olive
-        RGB(255, 255, 0), _    ' E - Yellow
-        RGB(184, 204, 228), _  ' F - Light Blue
-        RGB(184, 204, 228), _  ' G - Light Blue
-        RGB(255, 255, 0), _    ' H - Yellow
-        RGB(255, 255, 0), _    ' I - Yellow
-        RGB(255, 255, 0), _    ' J - Yellow
-        RGB(255, 255, 0), _    ' K - Yellow
-        -1, _                  ' L - No fill
-        -1, _                  ' M - No fill
-        -1, _                  ' N - No fill
-        -1)                    ' O - No fill
+        RGB(216, 228, 188), _  ' A
+        RGB(255, 255, 0), _    ' B
+        RGB(216, 228, 188), _  ' C
+        RGB(216, 228, 188), _  ' D
+        RGB(255, 255, 0), _    ' E
+        RGB(184, 204, 228), _  ' F
+        RGB(184, 204, 228), _  ' G
+        RGB(255, 255, 0), _    ' H
+        RGB(255, 255, 0), _    ' I
+        RGB(255, 255, 0), _    ' J
+        RGB(255, 255, 0), _    ' K
+        -1, _                  ' L
+        -1, _                  ' M
+        -1, _                  ' N
+        -1)                    ' O
 
+    ' Step 5: Define font colors
     fontColors = Array( _
-        RGB(0, 0, 0), _        ' A - Black
+        RGB(0, 0, 0), _        ' A
         RGB(0, 0, 0), _        ' B
         RGB(0, 0, 0), _        ' C
         RGB(0, 0, 0), _        ' D
@@ -72,14 +73,13 @@ Sub FormatData_ARManagerReport()
         RGB(255, 0, 0), _      ' N - Red
         RGB(255, 0, 0))        ' O - Red
 
+    ' Step 6: Apply headers, fill and font
     For i = 0 To UBound(headers)
         With newSheet.Cells(1, i + 1)
             .Value = headers(i)
             .Font.Bold = True
             .Font.Color = fontColors(i)
-            If fillColors(i) <> -1 Then
-                .Interior.Color = fillColors(i)
-            End If
+            If fillColors(i) <> -1 Then .Interior.Color = fillColors(i)
         End With
     Next i
 End Sub
