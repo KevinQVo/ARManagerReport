@@ -43,7 +43,7 @@ Sub FormatData_ARManagerReport()
     fillColors = Array( _
         RGB(216, 228, 188), RGB(255, 255, 0), RGB(216, 228, 188), RGB(216, 228, 188), _
         RGB(255, 255, 0), RGB(184, 204, 228), RGB(184, 204, 228), RGB(255, 255, 0), _
-        RGB(255, 255, 0), RGB(255, 255, 0), RGB(255, 255, 0), -1, -1, -1, RGB(184, 204, 228)) ' RIA now matches RPM
+        RGB(255, 255, 0), RGB(255, 255, 0), RGB(255, 255, 0), -1, -1, -1, RGB(184, 204, 228)) ' RIA = RPM style
 
     ' Step 5: Define font colors
     fontColors = Array( _
@@ -63,16 +63,16 @@ Sub FormatData_ARManagerReport()
         End With
     Next i
 
-    ' Step 7: Copy data from Oracle Cloud Aged to template
+    ' Step 7: Copy data from Oracle Cloud Aged (starting from row 7)
     lastRow = ws.Cells(ws.Rows.Count, "A").End(xlUp).Row
 
-    For iRow = 2 To lastRow
-        newSheet.Cells(iRow, 2).Value = ws.Cells(iRow, "T").Value ' BLK # → Col B
-        newSheet.Cells(iRow, 5).Value = ws.Cells(iRow, "B").Value ' Account # → Col E
-        newSheet.Cells(iRow, 8).Value = ws.Cells(iRow, "A").Value ' Long Title → Col H
-        newSheet.Cells(iRow, 9).Value = ws.Cells(iRow, "M").Value ' Total Fee Due → Col I
-        newSheet.Cells(iRow, 10).Value = ws.Cells(iRow, "S").Value ' Division Type → Col J
-        newSheet.Cells(iRow, 11).Value = ws.Cells(iRow, "G").Value ' Invoice # → Col K
+    For iRow = 7 To lastRow
+        newSheet.Cells(iRow - 6, 2).Value = ws.Cells(iRow, "T").Value ' BLK # → Col B
+        newSheet.Cells(iRow - 6, 5).Value = ws.Cells(iRow, "B").Value ' Account # → Col E
+        newSheet.Cells(iRow - 6, 8).Value = ws.Cells(iRow, "A").Value ' Long Title → Col H
+        newSheet.Cells(iRow - 6, 9).Value = ws.Cells(iRow, "M").Value ' Total Fee Due → Col I
+        newSheet.Cells(iRow - 6, 10).Value = ws.Cells(iRow, "S").Value ' Division Type → Col J
+        newSheet.Cells(iRow - 6, 11).Value = ws.Cells(iRow, "G").Value ' Invoice # → Col K
     Next iRow
 
 End Sub
