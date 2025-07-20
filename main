@@ -83,3 +83,47 @@ Sub FormatData_ARManagerReport()
         End With
     Next i
 End Sub
+
+------------------------------------------
+
+Sub TestArrays()
+    Dim fillColors As Variant
+    Dim fontColors As Variant
+
+    fillColors = Array( _
+        RGB(216, 228, 188), _
+        RGB(255, 255, 0), _
+        RGB(216, 228, 188), _
+        RGB(216, 228, 188), _
+        RGB(255, 255, 0), _
+        RGB(184, 204, 228), _
+        RGB(184, 204, 228), _
+        RGB(255, 255, 0), _
+        RGB(255, 255, 0), _
+        RGB(255, 255, 0), _
+        RGB(255, 255, 0), _
+        -1, _
+        -1, _
+        -1, _
+        -1)
+
+    fontColors = Array( _
+        RGB(0, 0, 0), _
+        RGB(0, 0, 0), _
+        RGB(0, 0, 0), _
+        RGB(0, 0, 0), _
+        RGB(0, 0, 0), _
+        RGB(0, 0, 0), _
+        RGB(0, 0, 0), _
+        RGB(0, 0, 0), _
+        RGB(0, 0, 0), _
+        RGB(0, 0, 0), _
+        RGB(0, 0, 0), _
+        RGB(255, 0, 0), _
+        RGB(255, 0, 0), _
+        RGB(255, 0, 0), _
+        RGB(255, 0, 0))
+
+    MsgBox "Arrays are valid!"
+End Sub
+
