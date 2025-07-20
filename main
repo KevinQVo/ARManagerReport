@@ -1,9 +1,16 @@
 Sub FormatData_ARManagerReport()
     Dim ws As Worksheet
     Dim newSheet As Worksheet
+    Dim formattedDate As String
     
-    ' Step 1: Format existing sheet
+    ' Step 0: Rename current sheet with today's date in xx.xx.xx format
     Set ws = ActiveSheet
+    formattedDate = Format(Date, "mm.dd.yy")
+    On Error Resume Next
+    ws.Name = "Oracle Cloud Aged (" & formattedDate & ")"
+    On Error GoTo 0
+    
+    ' Step 1: Format current sheet
     With ws.Cells
         .Select
         .UnMerge
@@ -20,5 +27,5 @@ Sub FormatData_ARManagerReport()
     On Error GoTo 0
 
     Set newSheet = Worksheets.Add(After:=Worksheets(Worksheets.Count))
-    newSheet.Name = "Template"
+    newSheet.Name = "template"
 End Sub
