@@ -1,12 +1,24 @@
 Sub FormatData_ARManagerReport()
     Dim ws As Worksheet
-    Set ws = ActiveSheet
+    Dim newSheet As Worksheet
     
+    ' Step 1: Format existing sheet
+    Set ws = ActiveSheet
     With ws.Cells
         .Select
         .UnMerge
-        .WrapText = False ' First toggle (off)
-        .WrapText = True  ' Then toggle back (on)
+        .WrapText = False ' First click (off)
+        .WrapText = True  ' Second click (on)
         .WrapText = False ' Third click (off)
     End With
+
+    ' Step 2: Create new sheet named "template"
+    On Error Resume Next
+    Application.DisplayAlerts = False
+    Worksheets("template").Delete ' Delete existing one if it exists
+    Application.DisplayAlerts = True
+    On Error GoTo 0
+
+    Set newSheet = Worksheets.Add(After:=Worksheets(Worksheets.Count))
+    newSheet.Name = "template"
 End Sub
