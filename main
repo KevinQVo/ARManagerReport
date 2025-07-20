@@ -39,25 +39,25 @@ Sub FormatData_ARManagerReport()
 
     ' Step 4: Define fill colors
     fillColors = Array( _
-        RGB(216, 228, 188), _  ' A
-        RGB(255, 255, 0), _    ' B
-        RGB(216, 228, 188), _  ' C
-        RGB(216, 228, 188), _  ' D
-        RGB(255, 255, 0), _    ' E
-        RGB(184, 204, 228), _  ' F
-        RGB(184, 204, 228), _  ' G
-        RGB(255, 255, 0), _    ' H
-        RGB(255, 255, 0), _    ' I
-        RGB(255, 255, 0), _    ' J
-        RGB(255, 255, 0), _    ' K
-        -1, _                  ' L
-        -1, _                  ' M
-        -1, _                  ' N
-        -1)                    ' O
+        RGB(216, 228, 188), _  ' A - Olive Accent 3 Lighter 80%
+        RGB(255, 255, 0), _    ' B - Yellow
+        RGB(216, 228, 188), _  ' C - Olive
+        RGB(216, 228, 188), _  ' D - Olive
+        RGB(255, 255, 0), _    ' E - Yellow
+        RGB(184, 204, 228), _  ' F - Light Blue
+        RGB(184, 204, 228), _  ' G - Light Blue
+        RGB(255, 255, 0), _    ' H - Yellow
+        RGB(255, 255, 0), _    ' I - Yellow
+        RGB(255, 255, 0), _    ' J - Yellow
+        RGB(255, 255, 0), _    ' K - Yellow
+        -1, _                  ' L - No fill
+        -1, _                  ' M - No fill
+        -1, _                  ' N - No fill
+        -1)                    ' O - No fill
 
     ' Step 5: Define font colors
     fontColors = Array( _
-        RGB(0, 0, 0), _        ' A
+        RGB(0, 0, 0), _        ' A - Black
         RGB(0, 0, 0), _        ' B
         RGB(0, 0, 0), _        ' C
         RGB(0, 0, 0), _        ' D
@@ -68,62 +68,20 @@ Sub FormatData_ARManagerReport()
         RGB(0, 0, 0), _        ' I
         RGB(0, 0, 0), _        ' J
         RGB(0, 0, 0), _        ' K
-        RGB(255, 0, 0), _      ' L - Red
-        RGB(255, 0, 0), _      ' M - Red
-        RGB(255, 0, 0), _      ' N - Red
-        RGB(255, 0, 0))        ' O - Red
+        RGB(255, 0, 0), _      ' L - Red text
+        RGB(255, 0, 0), _      ' M - Red text
+        RGB(255, 0, 0), _      ' N - Red text
+        RGB(255, 0, 0))        ' O - Red text
 
-    ' Step 6: Apply headers, fill and font
+    ' Step 6: Apply headers and formatting
     For i = 0 To UBound(headers)
         With newSheet.Cells(1, i + 1)
             .Value = headers(i)
             .Font.Bold = True
             .Font.Color = fontColors(i)
-            If fillColors(i) <> -1 Then .Interior.Color = fillColors(i)
+            If fillColors(i) <> -1 Then
+                .Interior.Color = fillColors(i)
+            End If
         End With
     Next i
 End Sub
-
-------------------------------------------
-
-Sub TestArrays()
-    Dim fillColors As Variant
-    Dim fontColors As Variant
-
-    fillColors = Array( _
-        RGB(216, 228, 188), _
-        RGB(255, 255, 0), _
-        RGB(216, 228, 188), _
-        RGB(216, 228, 188), _
-        RGB(255, 255, 0), _
-        RGB(184, 204, 228), _
-        RGB(184, 204, 228), _
-        RGB(255, 255, 0), _
-        RGB(255, 255, 0), _
-        RGB(255, 255, 0), _
-        RGB(255, 255, 0), _
-        -1, _
-        -1, _
-        -1, _
-        -1)
-
-    fontColors = Array( _
-        RGB(0, 0, 0), _
-        RGB(0, 0, 0), _
-        RGB(0, 0, 0), _
-        RGB(0, 0, 0), _
-        RGB(0, 0, 0), _
-        RGB(0, 0, 0), _
-        RGB(0, 0, 0), _
-        RGB(0, 0, 0), _
-        RGB(0, 0, 0), _
-        RGB(0, 0, 0), _
-        RGB(0, 0, 0), _
-        RGB(255, 0, 0), _
-        RGB(255, 0, 0), _
-        RGB(255, 0, 0), _
-        RGB(255, 0, 0))
-
-    MsgBox "Arrays are valid!"
-End Sub
-
