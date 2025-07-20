@@ -1,0 +1,11 @@
+Sub FormatData_ARManagerReport()
+    Dim ws As Worksheet
+    Set ws = ActiveSheet
+    
+    With ws.Cells
+        .Select
+        .UnMerge
+        .WrapText = False ' First toggle off
+        .WrapText = True  ' Then toggle back on
+    End With
+End Sub
