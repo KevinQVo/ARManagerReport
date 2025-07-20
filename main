@@ -6,14 +6,14 @@ Sub FormatData_ARManagerReport()
     Dim fillColors As Variant
     Dim fontColors As Variant
     Dim i As Integer
-    
+
     ' Step 0: Rename current sheet with today's date in mm.dd.yy format
     Set ws = ActiveSheet
     formattedDate = Format(Date, "mm.dd.yy")
     On Error Resume Next
     ws.Name = "Oracle Cloud Aged (" & formattedDate & ")"
     On Error GoTo 0
-    
+
     ' Step 1: Format current sheet
     With ws.Cells
         .Select
@@ -41,8 +41,8 @@ Sub FormatData_ARManagerReport()
     fillColors = Array( _
         RGB(216, 228, 188), _  ' A - Olive Accent 3 Lighter 80%
         RGB(255, 255, 0), _    ' B - Yellow
-        RGB(216, 228, 188), _  ' C - Olive Accent 3 Lighter 80%
-        RGB(216, 228, 188), _  ' D - Olive Accent 3 Lighter 80%
+        RGB(216, 228, 188), _  ' C - Olive
+        RGB(216, 228, 188), _  ' D - Olive
         RGB(255, 255, 0), _    ' E - Yellow
         RGB(184, 204, 228), _  ' F - Light Blue
         RGB(184, 204, 228), _  ' G - Light Blue
