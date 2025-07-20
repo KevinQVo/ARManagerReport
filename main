@@ -2,8 +2,12 @@ Sub FormatData_ARManagerReport()
     Dim ws As Worksheet
     Dim newSheet As Worksheet
     Dim formattedDate As String
+    Dim headers As Variant
+    Dim fillColors As Variant
+    Dim fontColors As Variant
+    Dim i As Integer
     
-    ' Step 0: Rename current sheet with today's date in xx.xx.xx format
+    ' Step 0: Rename current sheet with today's date in mm.dd.yy format
     Set ws = ActiveSheet
     formattedDate = Format(Date, "mm.dd.yy")
     On Error Resume Next
@@ -28,4 +32,52 @@ Sub FormatData_ARManagerReport()
 
     Set newSheet = Worksheets.Add(After:=Worksheets(Worksheets.Count))
     newSheet.Name = "template"
+
+    ' Step 3: Add headers with formatting
+    headers = Array("Sponsor/RIA", "BLK #", "Qtr", "Qtr Bucket", "Account #", "RPM", _
+                    "Termination Date", "Long Title", "Total Fee Due", "Division Type", _
+                    "Invoice #", "Owner", "Bucket Status", "Notes", "RIA")
+                    
+    fillColors = Array( _
+        RGB(216, 228, 188), _     ' A - Olive Accent 3 80%
+        RGB(255, 255, 0), _       ' B - Yellow
+        RGB(216, 228, 188), _     ' C - Olive
+        RGB(216, 228, 188), _     ' D - Olive
+        RGB(255, 255, 0), _       ' E - Yellow
+        RGB(184, 204, 228), _     ' F - Light blue
+        RGB(184, 204, 228), _     ' G - Light blue
+        RGB(255, 255, 0), _       ' H - Yellow
+        RGB(255, 255, 0), _       ' I - Yellow
+        RGB(255, 255, 0), _       ' J - Yellow
+        RGB(255, 255, 0), _       ' K - Yellow
+        -1, -1, -1, -1)           ' L to O - No fill
+
+    fontColors = Array( _
+        RGB(0, 0, 0), _           ' A - black
+        RGB(0, 0, 0), _           ' B
+        RGB(0, 0, 0), _           ' C
+        RGB(0, 0, 0), _           ' D
+        RGB(0, 0, 0), _           ' E
+        RGB(0, 0, 0), _           ' F
+        RGB(0, 0, 0), _           ' G
+        RGB(0, 0, 0), _           ' H
+        RGB(0, 0, 0), _           ' I
+        RGB(0, 0, 0), _           ' J
+        RGB(0, 0, 0), _           ' K
+        RGB(255, 0, 0), _         ' L - Red text
+        RGB(255, 0, 0), _         ' M - Red text
+        RGB(255, 0, 0), _         ' N - Red text
+        RGB(255, 0, 0))           ' O - Red text
+
+    For i = 0 To UBound(headers)
+        With newSheet.Cells(1, i + 1)
+            .Value = headers(i)
+            .Font.Bold = True
+            .Font.Color = fontColors(i)
+            If fillColors(i) <> -1 Then
+                .Interior.Color = fillColors(i)
+            End If
+        End With
+    Next i
 End Sub
+s
