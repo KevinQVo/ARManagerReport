@@ -76,3 +76,15 @@ Sub FormatData_ARManagerReport()
     Next iRow
 
 End Sub
+
+-----------------------
+
+    ' Step 12: Add formula to Qtr Bucket (column D)
+    newSheet.Range("D2").Formula = _
+        "=IF(M2=""REFUND DUE"",""REFUND""," & _
+        "IF(M2=""PAYMENT RECEIVED"",""PAYMENT RECEIVED""," & _
+        "IF(M2=""KICKOUT"",""KICKOUT""," & _
+        "IFERROR(IF(VLOOKUP(C2,Decodes!I:I,1,FALSE)=C2,C2,""Pre 3Q2019""),""Pre 3Q2019""))))"
+    
+    newSheet.Range("D2").AutoFill Destination:=newSheet.Range("D2:D" & formulaLastRow)
+
