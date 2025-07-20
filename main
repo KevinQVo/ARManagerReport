@@ -20,5 +20,5 @@ Sub FormatData_ARManagerReport()
     On Error GoTo 0
 
     Set newSheet = Worksheets.Add(After:=Worksheets(Worksheets.Count))
-    newSheet.Name = "template"
+    newSheet.Name = "Template"
 End Sub
