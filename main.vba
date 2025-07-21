@@ -8,6 +8,7 @@ Sub FormatData_ARManagerReport()
     Dim i As Integer
     Dim lastRow As Long
     Dim iRow As Long
+    Dim divCell As Range
 
     ' Step 0: Rename current sheet with today's date in mm.dd.yy format
     Set ws = ActiveSheet
@@ -24,7 +25,7 @@ Sub FormatData_ARManagerReport()
         .WrapText = False
     End With
 
-    ' Step 2: Create new sheet named "template"
+    ' Step 2: Create new sheet named "Template"
     On Error Resume Next
     Application.DisplayAlerts = False
     Worksheets("template").Delete
@@ -32,7 +33,7 @@ Sub FormatData_ARManagerReport()
     On Error GoTo 0
 
     Set newSheet = Worksheets.Add(After:=Worksheets(Worksheets.Count))
-    newSheet.Name = "template"
+    newSheet.Name = "Template"
 
     ' Step 3: Define headers
     headers = Array("Sponsor/RIA", "BLK #", "Qtr", "Qtr Bucket", "Account #", "RPM", _
@@ -65,21 +66,45 @@ Sub FormatData_ARManagerReport()
 
     ' Step 7: Copy data from Oracle Cloud Aged (starting from row 7)
     lastRow = ws.Cells(ws.Rows.Count, "A").End(xlUp).Row
+    destRow = 2
 
-    For iRow = 7 To lastRow
-        newSheet.Cells(iRow - 6, 2).Value = ws.Cells(iRow, "T").Value ' BLK # → Col B
-        newSheet.Cells(iRow - 6, 5).Value = ws.Cells(iRow, "B").Value ' Account # → Col E
-        newSheet.Cells(iRow - 6, 8).Value = ws.Cells(iRow, "A").Value ' Long Title → Col H
-        newSheet.Cells(iRow - 6, 9).Value = ws.Cells(iRow, "M").Value ' Total Fee Due → Col I
-        newSheet.Cells(iRow - 6, 10).Value = ws.Cells(iRow, "S").Value ' Division Type → Col J
-        newSheet.Cells(iRow - 6, 11).Value = ws.Cells(iRow, "G").Value ' Invoice # → Col K
-    Next iRow
+    For sourceRow = 7 To lastRow
+        newSheet.Cells(destRow, 2).Value = ws.Cells(sourceRow, "T").Value ' BLK # ? Col B
+        newSheet.Cells(destRow, 5).Value = ws.Cells(sourceRow, "B").Value ' Account # ? Col E
+        newSheet.Cells(destRow, 8).Value = ws.Cells(sourceRow, "A").Value ' Long Title ? Col H
+        newSheet.Cells(destRow, 9).Value = ws.Cells(sourceRow, "M").Value ' Total Fee Due ? Col I
+        newSheet.Cells(destRow, 10).Value = ws.Cells(sourceRow, "S").Value ' Division Type ? Col J
+        newSheet.Cells(destRow, 11).Value = ws.Cells(sourceRow, "G").Value ' Invoice # ? Col K
+        destRow = destRow + 1
+    Next sourceRow
 
-End Sub
-
------------------------
-
-    ' Step 12: Add formula to Qtr Bucket (column D)
+    ' Step 8: Formatting the Template worksheet
+    With newSheet.Cells
+        .Font.Name = "Arial"
+        .Font.Size = 9
+    End With
+    
+    ' Step 9: Replace 50A with 26C
+    For Each divCell In newSheet.Range("J2:J" & newSheet.Cells(newSheet.Rows.Count, "J").End(xlUp).Row)
+        If divCell.Value = "50A" Then
+            divCell.Value = "26C"
+        End If
+    Next divCell
+    
+    ' Step 10: Sponsor/RIA (Column A)
+    Dim formulaLastRow As Long
+    formulaLastRow = newSheet.Cells(newSheet.Rows.Count, "B").End(xlUp).Row
+    
+    newSheet.Range("A2").Formula = _
+        "=XLOOKUP(IF(XLOOKUP(B2,'PM Query'!A:A,'PM Query'!G:G,"""")=0,"""",XLOOKUP(B2,'PM Query'!A:A,'PM Query'!G:G,"""")),Vlookup!E:E,Vlookup!F:F,XLOOKUP(J2,Vlookup!A:A,Vlookup!C:C,""""))"
+    
+    newSheet.Range("A2").AutoFill Destination:=newSheet.Range("A2:A" & formulaLastRow)
+    
+    ' Step 11: Qtr (Column C)
+    newSheet.Range("C2").Formula = "=VLOOKUP(LEFT(K2,8),Decodes!B:C,2,FALSE)"
+    newSheet.Range("C2").AutoFill Destination:=newSheet.Range("C2:C" & formulaLastRow)
+    
+     ' Step 12: Add formula to Qtr Bucket (column D)
     newSheet.Range("D2").Formula = _
         "=IF(M2=""REFUND DUE"",""REFUND""," & _
         "IF(M2=""PAYMENT RECEIVED"",""PAYMENT RECEIVED""," & _
@@ -87,4 +112,21 @@ End Sub
         "IFERROR(IF(VLOOKUP(C2,Decodes!I:I,1,FALSE)=C2,C2,""Pre 3Q2019""),""Pre 3Q2019""))))"
     
     newSheet.Range("D2").AutoFill Destination:=newSheet.Range("D2:D" & formulaLastRow)
-
+    
+    ' Step 13: RPM (Column F)
+    newSheet.Range("F2").Formula = "=VLOOKUP(B2, 'PM Query'!A:P,16,FALSE)"
+    newSheet.Range("F2").AutoFill Destination:=newSheet.Range("F2:F" & formulaLastRow)
+    
+    ' Step 14: RPM (Column G)
+    newSheet.Range("G2").Formula = _
+    "=IF(VLOOKUP(B2, 'PM Query'!A:P,4,FALSE)=0,"""",VLOOKUP(B2, 'PM Query'!A:P,4,FALSE))"
+    newSheet.Range("G2").AutoFill Destination:=newSheet.Range("G2:G" & formulaLastRow)
+    newSheet.Range("G2:G" & formulaLastRow).NumberFormat = "mm/dd/yyyy"
+    
+    'Step 15: RIA (Column 0)
+    With newSheet.Range("O2")
+        .Formula = "=VLOOKUP(B2, 'PM Query'!A:G,7,FALSE)"
+        .AutoFill Destination:=newSheet.Range("O2:O" & formulaLastRow)
+    End With
+    
+End Sub
