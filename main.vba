@@ -1,3 +1,4 @@
+
 Sub FormatData_ARManagerReport()
     Dim ws As Worksheet
     Dim newSheet As Worksheet
@@ -109,7 +110,7 @@ Sub FormatData_ARManagerReport()
         "=IF(M2=""REFUND DUE"",""REFUND""," & _
         "IF(M2=""PAYMENT RECEIVED"",""PAYMENT RECEIVED""," & _
         "IF(M2=""KICKOUT"",""KICKOUT""," & _
-        "IFERROR(IF(VLOOKUP(C2,Decodes!I:I,1,FALSE)=C2,C2,""Pre 3Q2019""),""Pre 3Q2019""))))"
+        "IFERROR(IF(VLOOKUP(C2,Decodes!I:I,1,FALSE)=C2,C2,""Pre 4Q2025""),""Pre 4Q2025""))))"
     
     newSheet.Range("D2").AutoFill Destination:=newSheet.Range("D2:D" & formulaLastRow)
     
@@ -129,4 +130,42 @@ Sub FormatData_ARManagerReport()
         .AutoFill Destination:=newSheet.Range("O2:O" & formulaLastRow)
     End With
     
+    'Step 16: Owner (Column L)
+    With newSheet.Range("L2")
+        .Formula = "=VLOOKUP(K2, 'OLD Template'!$K:$L,2,FALSE)"
+        .AutoFill Destination:=newSheet.Range("L2:L" & formulaLastRow)
+    End With
+    
+    With newSheet.Range("L2:L" & lastRow)
+        .Copy
+        .PasteSpecial Paste:=xlPasteValues
+    End With
+    
+    'Step 17: Bucket Status (Column M)
+    With newSheet.Range("M2")
+        .Formula = "=VLOOKUP(K2, 'OLD Template'!$K:$M,3,FALSE)"
+        .AutoFill Destination:=newSheet.Range("M2:M" & formulaLastRow)
+    End With
+    
+     With newSheet.Range("M2:M" & lastRow)
+        .Copy
+        .PasteSpecial Paste:=xlPasteValues
+    End With
+    
+    'Step 18: Notes (Column N)
+    With newSheet.Range("N2")
+        .Formula = "=VLOOKUP(K2, 'OLD TEMPLATE'!$K:$N,4,FALSE)"
+        .AutoFill Destination:=newSheet.Range("N2:N" & formulaLastRow)
+    End With
+    
+    With newSheet.Range("N2:N" & lastRow)
+        .Copy
+        .PasteSpecial Paste:=xlPasteValues
+    End With
+
 End Sub
+
+
+
+
+
